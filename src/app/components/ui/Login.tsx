@@ -1,14 +1,11 @@
 "use client";
 
 import React, { useActionState } from "react";
-import {
-  BackgroundBeams,
-  BackgroundGradientAnimation,
-} from "./background-beams";
-import useSWR from "swr";
-import { qrFetcher } from "@/app/lib/apis";
-import SkeletonLoader from "./skeletonLoader";
-import QRCode from "react-qr-code";
+import { BackgroundBeams } from "./background-beams";
+// import useSWR from "swr";
+// import { qrFetcher } from "@/app/lib/apis";
+// import SkeletonLoader from "./skeletonLoader";
+// import QRCode from "react-qr-code";
 import { loginUser } from "@/app/lib/actions";
 
 function Login() {

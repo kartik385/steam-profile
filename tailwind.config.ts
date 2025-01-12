@@ -16,6 +16,10 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
+        mono: ["var(--font-geist-mono)"],
+      },
       animation: {
         spotlight: "spotlight 2s ease .75s 1 forwards",
         first: "moveVertical 30s ease infinite",
