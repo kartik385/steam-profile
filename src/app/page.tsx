@@ -1,8 +1,15 @@
 import Link from "next/link";
 import { Icon } from "./components/ui/Icon";
 import { Spotlight } from "./components/ui/Spotlight";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
+  const cookieStore = await cookies();
+  const steamId = cookieStore.get("steamId");
+  if (steamId) {
+    redirect("/Dashboard");
+  }
   return (
     <div className="h-screen w-full rounded-md flex items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight

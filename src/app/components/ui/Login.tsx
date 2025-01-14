@@ -36,6 +36,7 @@ function Login() {
             placeholder="steam id"
             id="steam-id"
             name="steam-id"
+            autoFocus
             className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4  bg-neutral-950 placeholder:text-neutral-700"
           />
           <button
@@ -45,7 +46,7 @@ function Login() {
           >
             Login
           </button>
-          {data?.user && <p>Welcome back, {data.user.personaname}!</p>}
+
           {data?.error && (
             <p className="text-red-500 text-sm mt-2">{data.error}</p>
           )}

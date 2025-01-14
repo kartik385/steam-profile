@@ -2,6 +2,9 @@
 
 import axios from "axios";
 
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 interface PalyerObject {
   response: Response;
 }
@@ -27,6 +30,7 @@ interface Player {
   personastateflags: number;
 }
 export async function loginUser(previousState: unknown, formData: FormData) {
+  const cookieStore = await cookies();
   const steamId = formData.get("steam-id") as string;
   if (!steamId) {
     return {
@@ -39,14 +43,25 @@ export async function loginUser(previousState: unknown, formData: FormData) {
       `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2?key=${process.env.STEAM_KEY}&steamids=${steamId}`
     );
 
-    return {
-      message: "User fetched successfully",
-      user: response.data.response.players[0],
-    };
+    if (!response.data.response.players.length) {
+      return {
+        error: "User not found",
+      };
+    } else {
+      cookieStore.set("steamId", response.data.response.players[0].steamid);
+    }
   } catch (error) {
     console.error(error);
     return {
       error: "An error occurred while fetching the user",
     };
   }
+
+  redirect("/Dashboard");
+}
+
+export async function logoutUser() {
+  const cookieStore = await cookies();
+  cookieStore.delete("steamId");
+  redirect("/");
 }
