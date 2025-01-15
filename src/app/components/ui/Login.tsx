@@ -2,10 +2,7 @@
 
 import React, { useActionState } from "react";
 import { BackgroundGradient } from "./background-beams";
-import useSWR from "swr";
-import { qrFetcher, qrPoller } from "@/app/lib/apis";
-import SkeletonLoader from "./skeletonLoader";
-import QRCode from "react-qr-code";
+
 import { loginUser } from "@/app/lib/actions";
 import { BackgroundBeams } from "./beam2";
 

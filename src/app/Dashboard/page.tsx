@@ -3,15 +3,15 @@ import Logout from "../components/ui/logout";
 export default async function Dashboard() {
   return (
     <div>
-      <nav className="sticky top-0 z-50 w-full left-0 bg-white shadow-lg">
-        <div className="flex  top-0 items-center justify-between flex-wrap bg-blue-500 p-6">
-          <div>Steam Scope</div>
+      <nav className="bg-black  mx-auto sticky top-0 z-50 w-full left-0  border-b border-b-slate-700 shadow-lg">
+        <div className="flex max-w-screen-2xl mx-auto  top-0 items-center justify-between flex-wrap bg-transparent p-3 md:p-6">
+          <div className="font-semibold text-xl md:text-3xl">Steam Scope</div>
           <div>
             <Logout />
           </div>
         </div>
       </nav>
-      <div>
+      <div className="p-5 max-w-screen-2xl mx-auto">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima qui
         libero ipsum odit dignissimos tenetur illo officia magnam, soluta
         voluptatem explicabo, natus, adipisci eligendi eaque a quas at
