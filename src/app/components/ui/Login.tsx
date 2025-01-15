@@ -1,71 +1,48 @@
 "use client";
 
 import React, { useActionState } from "react";
-import { BackgroundBeams } from "./background-beams";
+import { BackgroundGradient } from "./background-beams";
 import useSWR from "swr";
 import { qrFetcher, qrPoller } from "@/app/lib/apis";
 import SkeletonLoader from "./skeletonLoader";
 import QRCode from "react-qr-code";
 import { loginUser } from "@/app/lib/actions";
+import { BackgroundBeams } from "./beam2";
 
 function Login() {
-  const { data: QrData, isLoading } = useSWR(
-    "IAuthenticationService/BeginAuthSessionViaQR/v1/",
-    qrFetcher
-  );
-
-  if (QrData?.response) {
-    qrPoller(QrData.response.request_id, +QrData.response.client_id);
-  }
-
   const [data, action, pending] = useActionState(loginUser, undefined);
 
   return (
-    <div className="h-screen w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
-      <div className="max-w-3xl mx-auto p-4">
-        <h1 className="relative z-10 text-3xl md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
-          Login
+    <div className="flex justify-center items-center h-screen bg-gradient-to-br ">
+      <BackgroundGradient
+        animate={false}
+        className="max-w-md p-8 rounded-lg shadow-lg backdrop-blur-md "
+      >
+        <h1 className="text-3xl font-bold text-white mb-6 text-center">
+          Steam Login
         </h1>
-
-        <div className="flex justify-between items-center mt-5 gap-20 md:divide-x md:divide-gray-600  ">
+        <form action={action} className="space-y-5 mt-4">
           <div>
-            <form action={action}>
-              <input
-                type="text"
-                placeholder="Enter You Steam ID"
-                id="steam-id"
-                name="steam-id"
-                autoFocus
-                className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4  bg-neutral-950 placeholder:text-neutral-700"
-              />
-              <button
-                type="submit"
-                disabled={pending}
-                className="bg-teal-500 text-neutral-950 w-full rounded-lg p-2 mt-4 relative z-10"
-              >
-                Login
-              </button>
-
-              {data?.error && (
-                <p className="text-red-500 text-sm mt-2">{data.error}</p>
-              )}
-            </form>
+            <input
+              type="text"
+              placeholder="Enter You Steam ID"
+              id="steam-id"
+              name="steam-id"
+              className="w-full px-4 py-2 rounded-lg bg-white/20 text-white focus:outline-none focus:border-blue-900 focus:border-2"
+            />
           </div>
-
-          <div className="hidden md:block pl-20">
-            <div>
-              {isLoading ? (
-                <SkeletonLoader />
-              ) : (
-                <QRCode
-                  value={QrData?.response.challenge_url || ""}
-                  size={150}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+          {data?.error && (
+            <div className="text-red-500 text-sm text-center">{data.error}</div>
+          )}
+          <button
+            type="submit"
+            disabled={pending}
+            className="w-full border-4 font-semibold border-blue-500 px-4 py-2 rounded-lg bg-transparent text-white hover:bg-blue-500 hover:text-white transition duration-300"
+          >
+            Login
+          </button>
+        </form>
+      </BackgroundGradient>
       <BackgroundBeams />
     </div>
   );
